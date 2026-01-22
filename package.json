@@ -1,0 +1,21 @@
+{
+  "name": "automation_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test && npx playwright show-report --port=0",
+    "test-headed": "npx playwright test --headed && npx playwright show-report --port=0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
