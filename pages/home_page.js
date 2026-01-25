@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import homePageSelector from "../selector/homepage.js";
+import homePageSelector from "../selector/home_page.js";
 
 class HomePage {
   constructor(page, helpers) {

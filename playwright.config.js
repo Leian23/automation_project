@@ -33,7 +33,7 @@ export default defineConfig({
     trace: "retain-on-failure",
     video: {
       mode: "on",
-      size: { width: 1280, height: 720 }, // 720p
+      size: { width: 1280, height: 720 },
     },
     screenshot: "on",
   },

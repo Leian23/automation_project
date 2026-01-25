@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import loginPageSelector from "../selector/loginPage.js";
+import loginPageSelector from "../selector/login_page.js";
 import dotenv from "dotenv";
 dotenv.config();
 

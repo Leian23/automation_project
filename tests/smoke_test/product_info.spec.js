@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { createHelpers } from "../../helpers/helper.js";
-import LoginPage from "../../pages/loginPage.js";
+import LoginPage from "../../pages/login_page.js";
 import ProductDetailPage from "../../pages/product_page.js";
 import productPageSelectors from "../../selector/product_page.js";
 

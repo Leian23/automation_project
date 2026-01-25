@@ -1,8 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { createHelpers } from "../../helpers/helper.js";
-import homePageSelectors from "../../selector/homepage.js";
+import homePageSelectors from "../../selector/home_page.js";
 import HomePage from "../../pages/home_page.js";
-import LoginPage from "../../pages/loginPage.js";
+import LoginPage from "../../pages/login_page.js";
 import dotenv from "dotenv";
 import { assert } from "console";
 dotenv.config();

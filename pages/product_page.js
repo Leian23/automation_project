@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
 import productPageSelectors from "../selector/product_page.js";
-import homePageSelectors from "../selector/homepage.js";
+import homePageSelectors from "../selector/home_page.js";
 import dotenv from "dotenv";
 dotenv.config();
 
