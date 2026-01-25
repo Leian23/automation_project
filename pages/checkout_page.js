@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test";
-import CheckoutPageSelectors from "../selector/checkout_page";
-import homePageSelector from "../selector/homepage.js";
+import CheckoutPageSelectors from "../selector/checkout_page.js";
+import homePageSelector from "../selector/home_page.js";
 
 class CheckoutPage {
 
