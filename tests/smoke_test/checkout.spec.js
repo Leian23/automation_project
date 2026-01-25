@@ -1,36 +1,83 @@
-import { test, expect } from "@playwright/test";
-import { createHelpers } from "../../helpers/helper.js";
-import LoginPage from "../../pages/login_page.js";
+import { test, expect } from "../fixtures.js";
 import HomePage from "../../pages/home_page.js";
 import CheckoutPage from "../../pages/checkout_page.js";
-import dotenv from "dotenv";
-dotenv.config();
+import CheckoutPageSelectors from "../../selector/checkout_page.js";
 
 test.describe("Swag Labs Test - Checkout", () => {
-  let helpers;
-  let homePageObject;
-  let loginPageObject;
-  let checkoutPageObject;
+  test("Should be able to add item to cart and checkout", async ({
+    page,
+    helpers,
+    loggedIn,
+  }) => {
+    const homePage = new HomePage(page, helpers);
+    const checkoutPage = new CheckoutPage(page, helpers);
 
-  test.beforeEach(async ({ page }) => {
-    helpers = createHelpers(page);
-    loginPageObject = new LoginPage(page, helpers);
-    homePageObject = new HomePage(page, helpers);
-    checkoutPageObject = new CheckoutPage(page, helpers);
-
-    await loginPageObject.openUrl();
-    await helpers.assertElement(["//div[text()='Swag Labs']"], "xpath");
-    await loginPageObject.login(process.env.USERNAME, process.env.PASSWORD);
-  });
-  test.afterEach(async ({ page }) => {
-    await page.close();
-  });
-
-  test("Should be able to add item to cart and checkout", async ({ page }) => {
     await helpers.assertElement(["//span[text()='Products']"], "xpath");
 
-    await checkoutPageObject.addItemToCart(0);
-    await checkoutPageObject.goToCart();
-    await checkoutPageObject.checkout(process.env.FIRST_NAME, process.env.LAST_NAME, process.env.ZIP_CODE);
+    await checkoutPage.addItemToCart(0);
+    await checkoutPage.goToCart();
+    await checkoutPage.checkout(
+      process.env.FIRST_NAME,
+      process.env.LAST_NAME,
+      process.env.ZIP_CODE
+    );
+  });
+
+  test("Should show empty cart when navigating to cart without adding items", async ({
+    page,
+    helpers,
+    loggedIn,
+  }) => {
+    const checkoutPage = new CheckoutPage(page, helpers);
+    await checkoutPage.goToCart();
+
+    await expect(page).toHaveURL(/cart\.html/);
+    await expect(page.getByText("Continue Shopping")).toBeVisible();
+    await expect(page.locator(".cart_item")).toHaveCount(0);
+  });
+
+  test("Should show validation when checkout with empty first name", async ({
+    page,
+    helpers,
+    loggedIn,
+  }) => {
+    const checkoutPage = new CheckoutPage(page, helpers);
+
+    await checkoutPage.addItemToCart(0);
+    await checkoutPage.goToCart();
+
+    await helpers
+      .findElement(
+        CheckoutPageSelectors.checkoutButton.value,
+        CheckoutPageSelectors.checkoutButton.type
+      )
+      .click();
+
+    await expect(page).toHaveURL(/checkout-step-one\.html/);
+
+    // Leave first name empty, fill the rest, click continue
+    await helpers
+      .findElement(
+        CheckoutPageSelectors.lastNameField.value,
+        CheckoutPageSelectors.lastNameField.type
+      )
+      .fill("Doe");
+    await helpers
+      .findElement(
+        CheckoutPageSelectors.postalCodeField.value,
+        CheckoutPageSelectors.postalCodeField.type
+      )
+      .fill("12345");
+
+    await helpers
+      .findElement(
+        CheckoutPageSelectors.continueButton.value,
+        CheckoutPageSelectors.continueButton.type
+      )
+      .click();
+
+    // Swag Labs shows error and stays on step-one
+    await expect(page).toHaveURL(/checkout-step-one\.html/);
+    await expect(page.locator("[data-test='error']")).toBeVisible();
   });
 });
