@@ -76,16 +76,22 @@ automation_project/
 ├── helpers/           # Reusable helper functions
 │   └── helper.js
 ├── pages/            # Page Object Model classes
-│   ├── loginPage.js
-│   └── home_page.js
+│   ├── login_page.js
+│   ├── home_page.js
+│   ├── checkout_page.js
+│   └── product_page.js
 ├── selector/         # Page selectors/locators
-│   ├── loginPage.js
-│   └── homepage.js
+│   ├── login_page.js
+│   ├── home_page.js
+│   ├── checkout_page.js
+│   └── product_page.js
 ├── tests/            # Test specifications
 │   └── smoke_test/
 │       ├── login.spec.js
 │       ├── home.spec.js
-│       └── header_footer.spec.js
+│       ├── header_footer.spec.js
+│       ├── checkout.spec.js
+│       └── product_info.spec.js
 ├── playwright.config.js  # Playwright configuration
 ├── package.json
 └── README.md
