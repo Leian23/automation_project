@@ -2,9 +2,9 @@ name: Playwright
 
 on:
   push:
-    branches: [main, master, ci-cd-integ]
+    branches: [main, ci-cd-integ]
   pull_request:
-    branches: [main, master, ci-cd-integ]
+    branches: [main, ci-cd-integ]
   workflow_dispatch:  
 
 jobs:
