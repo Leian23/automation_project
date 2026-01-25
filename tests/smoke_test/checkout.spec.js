@@ -31,6 +31,6 @@ test.describe("Swag Labs Test - Checkout", () => {
 
     await checkoutPageObject.addItemToCart(0);
     await checkoutPageObject.goToCart();
-    await checkoutPageObject.checkout("John", "Doe", "12345");
+    await checkoutPageObject.checkout(process.env.FIRST_NAME, process.env.LAST_NAME, process.env.ZIP_CODE);
   });
 });
