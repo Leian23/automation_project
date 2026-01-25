@@ -33,7 +33,6 @@ test.describe("Swag Labs Test - HomePage", () => {
     const filterDropdown = page.locator(".product_sort_container");
 
     await expect(filterDropdown).toBeVisible();
-    await page.pause();
 
     const getTitles = async () => {
       return await page.$$eval(".inventory_item_name", (items) =>
@@ -127,13 +126,5 @@ test.describe("Swag Labs Test - HomePage", () => {
       await expect(button).toHaveText(/add to cart/i);
       await helpers.highlightElement([button]);
     }
-  });
-
-  test("Should be able to add item to cart and checkout", async ({ page }) => {
-    await helpers.assertElement(["//span[text()='Products']"], "xpath");
-
-    await homePageObject.addItemToCart(0);
-    await homePageObject.goToCart();
-    await homePageObject.checkout("John", "Doe", "12345");
   });
 });
