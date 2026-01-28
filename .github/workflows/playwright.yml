@@ -10,7 +10,8 @@ on:
 jobs:
   test:
     name: Run Playwright tests
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
+
     env:
       CI: true
       BA_URL: https://www.saucedemo.com
