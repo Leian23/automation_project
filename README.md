@@ -7,9 +7,11 @@ This is my test automation project for Swag Labs, built with Playwright. I've se
 - **Page Object Model**: I've separated the page logic from the test code to keep things clean
 - **Multi-browser Testing**: Runs tests on Chromium, Firefox, and WebKit so we can catch browser-specific issues
 - **Helper Utilities**: Some reusable helper functions I created for common tasks like finding elements and highlighting them during debugging
-- **Environment Configuration**: Using `.env` files to keep credentials and URLs secure
+- **Environment Configuration**: `.env` for credentials and URLs; `baseURL` in config
+- **Playwright Fixtures**: Reusable `helpers` and `loggedIn` to reduce boilerplate
+- **CI/CD**: GitHub Actions runs tests on push/PR; report uploaded as artifact
 - **Test Reports**: HTML reports with screenshots and videos when tests fail
-- **Cross-platform**: Should work fine on Windows, macOS, and Linux
+- **Cross-platform**: Windows, macOS, and Linux
 
 ## 📋 Prerequisites
 
@@ -34,12 +36,14 @@ npm install
 npx playwright install
 ```
 
-4. Create a `.env` file in the root directory with your test credentials:
+4. Create a `.env` file in the root directory (see `.env.example`):
 ```bash
-# Create .env file with the following variables:
-# BA_URL=your_base_url
-# USERNAME=your_username
-# PASSWORD=your_password
+# BA_URL=https://www.saucedemo.com
+# USERNAME=standard_user
+# PASSWORD=secret_sauce
+# FIRST_NAME=John
+# LAST_NAME=Doe
+# ZIP_CODE=12345
 ```
 
 ## 🧪 Running Tests
@@ -69,6 +73,15 @@ npx playwright test --project=chromium
 npx playwright test --ui
 ```
 
+## 🔄 CI/CD
+
+GitHub Actions runs Playwright on every push and pull request to `main`/`master`:
+- Installs deps and Playwright browsers
+- Runs all tests (Chromium, Firefox, WebKit)
+- Uploads the HTML report as an artifact (retention 7 days)
+
+Secrets: for a private app, set `BA_URL`, `USERNAME`, `PASSWORD`, `FIRST_NAME`, `LAST_NAME`, `ZIP_CODE` in the repo secrets and reference them in `.github/workflows/playwright.yml`. The default workflow uses public Swag Labs credentials.
+
 ## 📁 Project Structure
 
 ```
@@ -85,14 +98,17 @@ automation_project/
 │   ├── home_page.js
 │   ├── checkout_page.js
 │   └── product_page.js
-├── tests/            # Test specifications
+├── tests/
+│   ├── fixtures.js       # Custom fixtures (helpers, loggedIn)
 │   └── smoke_test/
 │       ├── login.spec.js
 │       ├── home.spec.js
 │       ├── header_footer.spec.js
 │       ├── checkout.spec.js
 │       └── product_info.spec.js
-├── playwright.config.js  # Playwright configuration
+├── .github/workflows/
+│   └── playwright.yml    # CI pipeline
+├── playwright.config.js
 ├── package.json
 └── README.md
 ```
@@ -113,16 +129,24 @@ I built some utility functions that I use across tests:
 - Scrolling elements into view
 
 ### Selector Management
-I keep all selectors in separate files from the page objects. This makes it easier to update them when the UI changes without having to dig through the page object code.
+Selectors live in `selector/` and are kept in sync with each page. Checkout-related selectors are in `checkout_page.js`; home/inventory in `home_page.js`.
+
+### Fixtures
+`tests/fixtures.js` defines:
+- **helpers**: `createHelpers(page)` bound to each test’s `page`
+- **loggedIn**: runs login before the test; use it when the test needs an authenticated session
+
+Tests import `{ test, expect } from "../fixtures.js"` instead of `@playwright/test` to use these.
 
 ## 🔧 Configuration
 
-The `playwright.config.js` file contains:
-- Test directory configuration
-- Browser projects (Chromium, Firefox, WebKit)
-- Retry strategy
-- Screenshot and video settings
-- Reporter configuration
+`playwright.config.js`:
+- Loads `.env` via dotenv (single place)
+- `baseURL` from `BA_URL` (or saucedemo default)
+- Browser projects: Chromium, Firefox, WebKit
+- Retries on CI, trace/screenshot/video on failure
+- In CI: GitHub reporter + HTML report (no auto-open)
+- Highlighting in helpers is skipped when `CI` is set
 
 ## 📊 Test Reports
 
@@ -167,7 +191,7 @@ npx playwright show-trace trace.zip
 
 - [ ] Maybe add some API testing examples
 - [ ] Database testing if we need it
-- [ ] Set up CI/CD so tests run automatically
+- [x] ~~Set up CI/CD so tests run automatically~~ (GitHub Actions)
 - [ ] Better way to manage test data
 - [ ] Performance testing if it becomes relevant
 - [ ] Visual regression testing could be useful

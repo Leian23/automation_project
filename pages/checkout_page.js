@@ -36,9 +36,8 @@ class CheckoutPage {
       await expect(addToCartButton).toBeVisible();
       await helpers.highlightElement([addToCartButton]);
 
-      // Click the add to cart button
       await addToCartButton.click();
-      await page.waitForTimeout(500);
+      await expect(card.locator("button")).toHaveText(/remove/i, { timeout: 5000 });
     } catch (error) {
       throw new Error(`Failed to add item to cart: ${error.message}`);
     }
@@ -61,7 +60,6 @@ class CheckoutPage {
         .click();
 
       await expect(page).toHaveURL(/cart.html/);
-      await page.waitForTimeout(500);
     } catch (error) {
       throw new Error(`Failed to go to cart: ${error.message}`);
     }
@@ -71,10 +69,10 @@ class CheckoutPage {
     const { page, helpers } = this;
 
     try {
-      // Click checkout button
+      // Click checkout button (on cart page)
       await helpers.assertElement(
-        [homePageSelector.checkoutButton.value],
-        homePageSelector.checkoutButton.type
+        [CheckoutPageSelectors.checkoutButton.value],
+        CheckoutPageSelectors.checkoutButton.type
       );
 
       await helpers
@@ -85,7 +83,6 @@ class CheckoutPage {
         .click();
 
       await expect(page).toHaveURL(/checkout-step-one.html/);
-      await page.waitForTimeout(500);
 
       // Fill in checkout information
       await helpers.assertElement(
@@ -146,7 +143,6 @@ class CheckoutPage {
         .click();
 
       await expect(page).toHaveURL(/checkout-step-two.html/);
-      await page.waitForTimeout(500);
 
       // Click finish button
       await helpers.assertElement(
@@ -162,7 +158,6 @@ class CheckoutPage {
         .click();
 
       await expect(page).toHaveURL(/checkout-complete.html/);
-      await page.waitForTimeout(500);
 
       // Verify checkout completion
       await helpers.assertElement(

@@ -1,8 +1,6 @@
 import { expect } from "@playwright/test";
 import productPageSelectors from "../selector/product_page.js";
 import homePageSelectors from "../selector/home_page.js";
-import dotenv from "dotenv";
-dotenv.config();
 
 export default class ProductDetailPage {
   constructor(page, helpers) {
@@ -27,7 +25,6 @@ export default class ProductDetailPage {
     await expect(nameLink).toBeVisible();
     await nameLink.click();
     await expect(page).toHaveURL(/inventory-item\.html\?id=/);
-    await page.waitForTimeout(500);
   }
   async backToProducts() {
     const { page, helpers } = this;
@@ -40,9 +37,7 @@ export default class ProductDetailPage {
       .findElement(productPageSelectors.backButton.value, productPageSelectors.backButton.type)
       .click();
     await expect(page).toHaveURL(/inventory\.html/);
-    await page.waitForTimeout(500);
   }
-
 
   async addToCart() {
     const { page, helpers } = this;
@@ -54,6 +49,11 @@ export default class ProductDetailPage {
     await helpers
       .findElement(productPageSelectors.addToCartButton.value, productPageSelectors.addToCartButton.type)
       .click();
-    await page.waitForTimeout(500);
+    await expect(
+      helpers.findElement(
+        productPageSelectors.removeButton.value,
+        productPageSelectors.removeButton.type
+      )
+    ).toBeVisible({ timeout: 5000 });
   }
 }

@@ -1,7 +1,5 @@
 import { expect } from "@playwright/test";
 import loginPageSelector from "../selector/login_page.js";
-import dotenv from "dotenv";
-dotenv.config();
 
 export default class LoginPage {
   constructor(page, helpers) {
@@ -10,9 +8,9 @@ export default class LoginPage {
   }
 
   async openUrl() {
-    const { page, helpers } = this;
+    const { page } = this;
     try {
-      await page.goto(process.env.BA_URL);
+      await page.goto("/");
     } catch (error) {
       throw new Error(`Failed to open URL: ${error.message}`);
     }
@@ -56,5 +54,28 @@ export default class LoginPage {
     } catch (error) {
       throw new Error(`Failed to open Login: ${error.message}`);
     }
+  }
+
+  /** Fill and submit login form without asserting success. Use for negative tests. */
+  async submitCredentials(email, password) {
+    const { page, helpers } = this;
+    await helpers
+      .findElement(
+        loginPageSelector.usernameField.value,
+        loginPageSelector.usernameField.type
+      )
+      .fill(email);
+    await helpers
+      .findElement(
+        loginPageSelector.passwordField.value,
+        loginPageSelector.passwordField.type
+      )
+      .fill(password);
+    await helpers
+      .findElement(
+        loginPageSelector.loginButton.value,
+        loginPageSelector.loginButton.type
+      )
+      .click();
   }
 }

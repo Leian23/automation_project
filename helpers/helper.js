@@ -33,12 +33,11 @@ export function createHelpers(page) {
     highlight = true,
     timeout = 5000
   ) {
+    const shouldHighlight = highlight && !process.env.CI;
     for (let sel of selectors) {
       const locator = findElement(sel, strategy);
       await expect(locator).toBeVisible({ timeout });
-
-      if (highlight) await highlightElement([locator]);
-      await page.waitForTimeout(500);
+      if (shouldHighlight) await highlightElement([locator]);
     }
   }
 
@@ -53,12 +52,10 @@ export function createHelpers(page) {
     if (count === 0)
       throw new Error(`No elements found for selector: ${selector}`);
 
+    const shouldHighlight = highlight && !process.env.CI;
     for (let i = 0; i < count; i++) {
       const el = locator.nth(i);
-      if (await el.isVisible()) {
-        if (highlight) await highlightElement([el]);
-        await page.waitForTimeout(500);
-      }
+      if (await el.isVisible() && shouldHighlight) await highlightElement([el]);
     }
   }
 
@@ -70,10 +67,8 @@ export function createHelpers(page) {
   ) {
     const locator = findElement(selector, strategy);
     await expect(locator).toContainText(expectedText);
-
     await scrollIntoViewNested(locator);
-    if (highlight) await highlightElement([locator]);
-    await page.waitForTimeout(500);
+    if (highlight && !process.env.CI) await highlightElement([locator]);
   }
 
   async function assertElementSoft(
@@ -83,14 +78,13 @@ export function createHelpers(page) {
     timeout = 1000
   ) {
     const failures = [];
+    const shouldHighlight = highlight && !process.env.CI;
     for (let sel of selectors) {
       try {
         const locator = findElement(sel, strategy);
         await expect(locator).toBeVisible({ timeout });
         await scrollIntoViewNested(locator);
-
-        if (highlight) await highlightElement([locator]);
-        await page.waitForTimeout(250);
+        if (shouldHighlight) await highlightElement([locator]);
       } catch (err) {
         failures.push(`Failed selector: ${sel} | Error: ${err.message}`);
       }
