@@ -2,15 +2,19 @@ name: Playwright
 
 on:
   push:
-    branches: [main, ci-cd-integ]
+    branches: 
+    - main
+    - ci-cd-integ
   pull_request:
-    branches: [main, ci-cd-integ]
+    branches: 
+    - main
+    - ci-cd-integ
   workflow_dispatch:  
 
 jobs:
   test:
     name: Run Playwright tests
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     env:
       CI: true
