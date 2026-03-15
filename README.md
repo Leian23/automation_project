@@ -197,10 +197,6 @@ npx playwright show-trace trace.zip
 - [ ] Visual regression testing could be useful
 - [ ] Mobile device testing support
 
-## 📄 License
-
-ISC
-
 ## 👤 Author
 Leandro Ayeras
 Built for Swag Labs test automation
