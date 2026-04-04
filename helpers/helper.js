@@ -31,7 +31,7 @@ export function createHelpers(page) {
     selectors,
     strategy = "id",
     highlight = true,
-    timeout = 5000
+    timeout = 5000,
   ) {
     const shouldHighlight = highlight && !process.env.CI;
     for (let sel of selectors) {
@@ -45,7 +45,7 @@ export function createHelpers(page) {
     selector,
     strategy = "id",
     highlight = true,
-    timeout = 5000
+    timeout = 5000,
   ) {
     const locator = findElement(selector, strategy);
     const count = await locator.count();
@@ -55,7 +55,8 @@ export function createHelpers(page) {
     const shouldHighlight = highlight && !process.env.CI;
     for (let i = 0; i < count; i++) {
       const el = locator.nth(i);
-      if (await el.isVisible() && shouldHighlight) await highlightElement([el]);
+      if ((await el.isVisible()) && shouldHighlight)
+        await highlightElement([el]);
     }
   }
 
@@ -63,7 +64,7 @@ export function createHelpers(page) {
     selector,
     expectedText,
     strategy = "id",
-    highlight = true
+    highlight = true,
   ) {
     const locator = findElement(selector, strategy);
     await expect(locator).toContainText(expectedText);
@@ -75,7 +76,7 @@ export function createHelpers(page) {
     selectors,
     strategy = "id",
     highlight = true,
-    timeout = 1000
+    timeout = 1000,
   ) {
     const failures = [];
     const shouldHighlight = highlight && !process.env.CI;

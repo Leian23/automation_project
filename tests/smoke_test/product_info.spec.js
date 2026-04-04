@@ -15,39 +15,39 @@ test.describe("Swag Labs Test - Product Detail Page", () => {
 
     await helpers.assertElement(
       [productPageSelectors.backButton.value],
-      productPageSelectors.backButton.type
+      productPageSelectors.backButton.type,
     );
 
     const image = helpers.findElement(
       productPageSelectors.productImage.value,
-      productPageSelectors.productImage.type
+      productPageSelectors.productImage.type,
     );
     await expect(image).toBeVisible();
 
     const name = helpers.findElement(
       productPageSelectors.productName.value,
-      productPageSelectors.productName.type
+      productPageSelectors.productName.type,
     );
     await expect(name).toBeVisible();
     await expect(name).not.toHaveText("");
 
     const desc = helpers.findElement(
       productPageSelectors.productDesc.value,
-      productPageSelectors.productDesc.type
+      productPageSelectors.productDesc.type,
     );
     await expect(desc).toBeVisible();
     await expect(desc).not.toHaveText("");
 
     const price = helpers.findElement(
       productPageSelectors.productPrice.value,
-      productPageSelectors.productPrice.type
+      productPageSelectors.productPrice.type,
     );
     await expect(price).toBeVisible();
     await expect(price).toHaveText(/^\$\d+\.\d{2}$/);
 
     await helpers.assertElement(
       [productPageSelectors.addToCartButton.value],
-      productPageSelectors.addToCartButton.type
+      productPageSelectors.addToCartButton.type,
     );
   });
 
@@ -81,14 +81,14 @@ test.describe("Swag Labs Test - Product Detail Page", () => {
     const cartBadge = await helpers
       .findElement(
         productPageSelectors.shoppingCartBadge.value,
-        productPageSelectors.shoppingCartBadge.type
+        productPageSelectors.shoppingCartBadge.type,
       )
       .textContent();
     expect(cartBadge).toBe("1");
 
     const removeBtn = helpers.findElement(
       productPageSelectors.removeButton.value,
-      productPageSelectors.removeButton.type
+      productPageSelectors.removeButton.type,
     );
     await expect(removeBtn).toBeVisible();
     await expect(removeBtn).toHaveText(/remove/i);

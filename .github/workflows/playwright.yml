@@ -2,14 +2,14 @@ name: Playwright
 
 on:
   push:
-    branches: 
-    - main
-    - ci-cd-integ
+    branches:
+      - main
+      - ci-cd-integ
   pull_request:
-    branches: 
-    - main
-    - ci-cd-integ
-  workflow_dispatch:  
+    branches:
+      - main
+      - ci-cd-integ
+  workflow_dispatch:
 
 jobs:
   test:
@@ -21,8 +21,8 @@ jobs:
       BA_URL: https://www.saucedemo.com
       USERNAME: standard_user
       PASSWORD: secret_sauce
-      FIRST_NAME: John
-      LAST_NAME: Doe
+      FIRST_NAME: Test-User
+      LAST_NAME: User
       ZIP_CODE: 12345
 
     steps:

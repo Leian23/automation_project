@@ -13,11 +13,13 @@ export default class ProductDetailPage {
 
     const productCards = helpers.findElement(
       homePageSelectors.products.value,
-      homePageSelectors.products.type
+      homePageSelectors.products.type,
     );
     const count = await productCards.count();
     if (productIndex >= count) {
-      throw new Error(`Product index ${productIndex} out of range. Total: ${count}`);
+      throw new Error(
+        `Product index ${productIndex} out of range. Total: ${count}`,
+      );
     }
 
     const card = productCards.nth(productIndex);
@@ -31,10 +33,13 @@ export default class ProductDetailPage {
 
     await helpers.assertElement(
       [productPageSelectors.backButton.value],
-      productPageSelectors.backButton.type
+      productPageSelectors.backButton.type,
     );
     await helpers
-      .findElement(productPageSelectors.backButton.value, productPageSelectors.backButton.type)
+      .findElement(
+        productPageSelectors.backButton.value,
+        productPageSelectors.backButton.type,
+      )
       .click();
     await expect(page).toHaveURL(/inventory\.html/);
   }
@@ -44,16 +49,19 @@ export default class ProductDetailPage {
 
     await helpers.assertElement(
       [productPageSelectors.addToCartButton.value],
-      productPageSelectors.addToCartButton.type
+      productPageSelectors.addToCartButton.type,
     );
     await helpers
-      .findElement(productPageSelectors.addToCartButton.value, productPageSelectors.addToCartButton.type)
+      .findElement(
+        productPageSelectors.addToCartButton.value,
+        productPageSelectors.addToCartButton.type,
+      )
       .click();
     await expect(
       helpers.findElement(
         productPageSelectors.removeButton.value,
-        productPageSelectors.removeButton.type
-      )
+        productPageSelectors.removeButton.type,
+      ),
     ).toBeVisible({ timeout: 5000 });
   }
 }

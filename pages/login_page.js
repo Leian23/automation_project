@@ -22,31 +22,31 @@ export default class LoginPage {
     try {
       await helpers.assertElement(
         [loginPageSelector.usernameField.value],
-        loginPageSelector.usernameField.type
+        loginPageSelector.usernameField.type,
       );
       await helpers.assertElement(
         [loginPageSelector.passwordField.value],
-        loginPageSelector.passwordField.type
+        loginPageSelector.passwordField.type,
       );
 
       // Fill credentials
       await helpers
         .findElement(
           loginPageSelector.usernameField.value,
-          loginPageSelector.usernameField.type
+          loginPageSelector.usernameField.type,
         )
         .fill(email);
       await helpers
         .findElement(
           loginPageSelector.passwordField.value,
-          loginPageSelector.passwordField.type
+          loginPageSelector.passwordField.type,
         )
         .fill(password);
 
       await helpers
         .findElement(
           loginPageSelector.loginButton.value,
-          loginPageSelector.loginButton.type
+          loginPageSelector.loginButton.type,
         )
         .click();
 
@@ -62,19 +62,19 @@ export default class LoginPage {
     await helpers
       .findElement(
         loginPageSelector.usernameField.value,
-        loginPageSelector.usernameField.type
+        loginPageSelector.usernameField.type,
       )
       .fill(email);
     await helpers
       .findElement(
         loginPageSelector.passwordField.value,
-        loginPageSelector.passwordField.type
+        loginPageSelector.passwordField.type,
       )
       .fill(password);
     await helpers
       .findElement(
         loginPageSelector.loginButton.value,
-        loginPageSelector.loginButton.type
+        loginPageSelector.loginButton.type,
       )
       .click();
   }

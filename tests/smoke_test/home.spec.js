@@ -20,11 +20,11 @@ test.describe("Swag Labs Test - HomePage", () => {
 
     const getTitles = async () =>
       await page.$$eval(".inventory_item_name", (items) =>
-        items.map((i) => i.textContent.trim())
+        items.map((i) => i.textContent.trim()),
       );
     const getPrices = async () => {
       const prices = await page.$$eval(".inventory_item_price", (items) =>
-        items.map((i) => Number(i.textContent.replace("$", "")))
+        items.map((i) => Number(i.textContent.replace("$", ""))),
       );
       return prices;
     };
@@ -76,7 +76,7 @@ test.describe("Swag Labs Test - HomePage", () => {
 
     const productCards = helpers.findElement(
       homePageSelectors.products.value,
-      homePageSelectors.products.type
+      homePageSelectors.products.type,
     );
     const count = await productCards.count();
     expect(count).toBeGreaterThan(0);
@@ -90,7 +90,7 @@ test.describe("Swag Labs Test - HomePage", () => {
       await expect(card.locator(".inventory_item_desc")).not.toHaveText("");
       await expect(card.locator(".inventory_item_price")).toBeVisible();
       await expect(card.locator(".inventory_item_price")).toHaveText(
-        /^\$\d+\.\d{2}$/
+        /^\$\d+\.\d{2}$/,
       );
       await expect(card.locator("button")).toBeVisible();
       await expect(card.locator("button")).toHaveText(/add to cart/i);

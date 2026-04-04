@@ -21,9 +21,11 @@ test.describe("Swag Labs Test - Login", () => {
     await expect(page).not.toHaveURL(/inventory\.html/);
     const error = helpers.findElement(
       loginPageSelectors.errorMessage.value,
-      loginPageSelectors.errorMessage.type
+      loginPageSelectors.errorMessage.type,
     );
     await expect(error).toBeVisible();
-    await expect(error).toContainText(/do not match any user|Username is required|Password is required/i);
+    await expect(error).toContainText(
+      /do not match any user|Username is required|Password is required/i,
+    );
   });
 });

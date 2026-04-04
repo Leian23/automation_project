@@ -14,12 +14,12 @@ class HomePage {
       // Ensure the menu list elements are present
       await helpers.assertElements(
         homePageSelector.menuList.value,
-        homePageSelector.menuList.type
+        homePageSelector.menuList.type,
       );
 
       const menuLists = helpers.findElement(
         homePageSelector.menuList.value,
-        homePageSelector.menuList.type
+        homePageSelector.menuList.type,
       );
 
       const count = await menuLists.count();

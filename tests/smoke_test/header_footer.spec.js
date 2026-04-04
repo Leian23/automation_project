@@ -12,12 +12,12 @@ test.describe("Swag Labs Test - Header", () => {
 
     await helpers.assertElement(
       [homePageSelectors.menuButton.value],
-      homePageSelectors.menuButton.type
+      homePageSelectors.menuButton.type,
     );
     await helpers
       .findElement(
         homePageSelectors.menuButton.value,
-        homePageSelectors.menuButton.type
+        homePageSelectors.menuButton.type,
       )
       .click();
 
@@ -33,23 +33,23 @@ test.describe("Swag Labs Test - Header", () => {
     await helpers.assertElement(["//div[text()='Swag Labs']"], "xpath");
     await helpers.assertElement(
       [homePageSelectors.closeMenuButton.value],
-      homePageSelectors.closeMenuButton.type
+      homePageSelectors.closeMenuButton.type,
     );
     await helpers
       .findElement(
         homePageSelectors.closeMenuButton.value,
-        homePageSelectors.closeMenuButton.type
+        homePageSelectors.closeMenuButton.type,
       )
       .click();
 
     await helpers.assertElement(
       [homePageSelectors.shoppingCartIcon.value],
-      homePageSelectors.shoppingCartIcon.type
+      homePageSelectors.shoppingCartIcon.type,
     );
     await helpers
       .findElement(
         homePageSelectors.shoppingCartIcon.value,
-        homePageSelectors.shoppingCartIcon.type
+        homePageSelectors.shoppingCartIcon.type,
       )
       .click();
 
@@ -68,11 +68,11 @@ test.describe("Swag Labs Test - Footer", () => {
       "Sauce Labs. All Rights Reserved. Terms of Service | Privacy Policy";
     await helpers.assertElement(
       [`//div[@class='footer_copy' and contains(., '${partialText}')]`],
-      "xpath"
+      "xpath",
     );
     await helpers.assertElements(
       homePageSelectors.footerIcons.value,
-      homePageSelectors.footerIcons.type
+      homePageSelectors.footerIcons.type,
     );
   });
 });

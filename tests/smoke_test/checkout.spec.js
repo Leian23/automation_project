@@ -19,7 +19,7 @@ test.describe("Swag Labs Test - Checkout", () => {
     await checkoutPage.checkout(
       process.env.FIRST_NAME,
       process.env.LAST_NAME,
-      process.env.ZIP_CODE
+      process.env.ZIP_CODE,
     );
   });
 
@@ -49,7 +49,7 @@ test.describe("Swag Labs Test - Checkout", () => {
     await helpers
       .findElement(
         CheckoutPageSelectors.checkoutButton.value,
-        CheckoutPageSelectors.checkoutButton.type
+        CheckoutPageSelectors.checkoutButton.type,
       )
       .click();
 
@@ -59,20 +59,20 @@ test.describe("Swag Labs Test - Checkout", () => {
     await helpers
       .findElement(
         CheckoutPageSelectors.lastNameField.value,
-        CheckoutPageSelectors.lastNameField.type
+        CheckoutPageSelectors.lastNameField.type,
       )
       .fill("Doe");
     await helpers
       .findElement(
         CheckoutPageSelectors.postalCodeField.value,
-        CheckoutPageSelectors.postalCodeField.type
+        CheckoutPageSelectors.postalCodeField.type,
       )
       .fill("12345");
 
     await helpers
       .findElement(
         CheckoutPageSelectors.continueButton.value,
-        CheckoutPageSelectors.continueButton.type
+        CheckoutPageSelectors.continueButton.type,
       )
       .click();
 
